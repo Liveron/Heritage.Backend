@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres
+    ports:
+       - ":5432"
+
+  heritage.webapi:
+    image: ${DOCKER_REGISTRY-}heritagewebapi
+    build:
+      context: .
+      dockerfile: Heritage.WebApi/Dockerfile
+    depends_on:
+       - postgres
