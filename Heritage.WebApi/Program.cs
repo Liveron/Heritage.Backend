@@ -1,7 +1,6 @@
 using Heritage.Application;
 using Heritage.Persistance;
 using Heritage.WebApi.Extensions;
-using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +25,7 @@ DbInitializer.Initialize(app.Services);
 
 app.ConfigureExceptionHandler();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 

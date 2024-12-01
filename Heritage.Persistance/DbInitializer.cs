@@ -43,7 +43,7 @@ public static class DbInitializer
 		}
 		catch (Exception)
 		{
-			throw new Exception("An error occured creating the DB.");
+			throw;
 		}
     }
 }

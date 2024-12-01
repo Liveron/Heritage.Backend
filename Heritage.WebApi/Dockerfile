@@ -3,6 +3,7 @@
 # Этот этап используется при запуске из VS в быстром режиме (по умолчанию для конфигурации отладки)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
+ENV SECRET="HELLO"
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -19,6 +20,7 @@ COPY ["Heritage.Domain/Heritage.Domain.csproj", "Heritage.Domain/"]
 RUN dotnet restore "./Heritage.WebApi/Heritage.WebApi.csproj"
 COPY . .
 WORKDIR "/src/Heritage.WebApi"
+ENV SECRET="HELLO"
 RUN dotnet build "./Heritage.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
@@ -29,6 +31,5 @@ RUN dotnet publish "./Heritage.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/pu
 # Этот этап используется в рабочей среде или при запуске из VS в обычном режиме (по умолчанию, когда конфигурация отладки не используется)
 FROM base AS final
 WORKDIR /app
-ENV SECRET=HELLO
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Heritage.WebApi.dll"]

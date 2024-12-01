@@ -3,6 +3,10 @@ services:
     image: postgres
     ports:
        - ":5432"
+    environment:
+        POSTGRES_PASSWORD: 1234
+    networks:
+       - backend
 
   heritage.webapi:
     image: ${DOCKER_REGISTRY-}heritagewebapi
@@ -11,3 +15,8 @@ services:
       dockerfile: Heritage.WebApi/Dockerfile
     depends_on:
        - postgres
+    networks:
+       - backend
+
+networks:
+  backend:
